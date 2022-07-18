@@ -1,5 +1,3 @@
 from django.db import models
 
-# Create your models here.
-class sidharth(models.Model):
-    text = models.CharField(max_length=255)
+# Create your models here
