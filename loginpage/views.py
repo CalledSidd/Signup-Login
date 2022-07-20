@@ -16,8 +16,11 @@ def index(request):
         password = request.POST['pass']
         user = authenticate(username=username, password=password)
         if user is not None:
+            messages.error(request,"Enter correct details")
             request.session['username'] = username
             return render(request, 'home.html')
+        elif user is None:
+            messages.error(request,"Fill Details Correctly")
     return render(request, 'login.html')
 
 
@@ -26,14 +29,17 @@ def signup(request):
     if request.method == 'POST':
         username = request.POST['name']
         userid = request.POST['userid']
-        useremail = request.POST['mail']
+        email = request.POST['mail']
         password = request.POST['password1']
         password2 = request.POST['password2']
-        print(username, userid, useremail, password)
+        print(username, userid, email, password)
         if password == password2:
-            user = User.objects.create_user(username=userid, password=password, email=useremail, first_name=username)
-            user.save();
-        return render(request, 'home.html')
+            if User.objects.filter(username = username).exists():
+                messages.error(request,"User Already Exists")
+            else:
+                user = User.objects.create_user(username=username, password=password, email=email, first_name=username)
+                user.save();
+                return redirect(index)
     else:
         return render(request, 'signup.html')
 

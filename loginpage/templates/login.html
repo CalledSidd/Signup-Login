@@ -66,6 +66,9 @@
                     </form>
                         <h6>Already have an account</h6>
                         <a href= "signup"><button class="btn btn-outline-primary btn-lg px-5" type="submit" id="sinup">SignUp</button></a>
+                        {% for message in messages %}
+                        <p class="text-danger">{{message}}</p>
+                        {% endfor %}
                   </div>
                 </div>
               </div>

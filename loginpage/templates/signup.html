@@ -58,32 +58,37 @@
                     <form method="post">
                     {% csrf_token %}
                     <div class="form-outline form-white mb-4">
-                      <input type="text" id="fname_id" class="form-control form-control-lg"  placeholder="Name" name="name" onkeyup="validateFName()"/>
+                      <input type="text" id="fname_id" class="form-control form-control-lg"  placeholder="Name" name="name" onkeyup="validateFName()" required/>
                       <label class="form-label" for="Name"></label>
                       <span id="fname-error" name="fname_error"></span><br>
                     </div>
                     <div class="form-outline form-white mb-4">
-                        <input type="text" id="uname_id" class="form-control form-control-lg"  placeholder="ID" name="userid" onkeyup="validateUname()"/>
+                        <input type="text" id="uname_id" class="form-control form-control-lg"  placeholder="ID" name="userid" onkeyup="validateUname()" required/>
                         <label class="form-label" for="Username"></label>
                         <span id="uname-error" name="uname_error"></span><br>
                       </div>
                     <div class="form-outline form-white mb-4">
-                      <input type="email" id="email_id" class="form-control form-control-lg" placeholder="Email" name="mail" onkeyup="validateEmail()"/>
+                      <input type="email" id="email_id" class="form-control form-control-lg" placeholder="Email" name="mail" onkeyup="validateEmail()" required/>
                       <label class="form-label" for="Email"></label>
                       <span id="email-error" name="email_error"></span><br>
                     </div>   
                     <div class="form-outline form-white mb-4">
-                        <input type="password" id="pass_id" class="form-control form-control-lg" placeholder="Password" name="password1" onkeyup="validatePassword()"/>
+                        <input type="password" id="pass_id" class="form-control form-control-lg" placeholder="Password" name="password1" onkeyup="validatePassword()" required/>
                         <label class="form-label" for="Password"></label>
                         <span id="pass-error" name="pass_error"></span> 
                       </div>     
                         <div class="form-outline form-white mb-4">
-                        <input type="password" id="Password1" class="form-control form-control-lg" placeholder="Confirm Password" name="password2"/>
+                        <input type="password" id="Password1" class="form-control form-control-lg" placeholder="Confirm Password" name="password2" required/>
                         <label class="form-label" for="Password1"></label>
                       </div>  
                       <button class="btn btn-outline-primary btn-lg px-5" type="submit" id="Signup">Sign-Up</button>
                     </form>
                         <a href="/"><button class="btn btn-outline-primary btn-lg mt-2 px-5" type="submit" id="logi">Log-In</button></a>
+                      {% if messages %}
+                        {% for message in message%}
+                            {{message}}
+                        {% endfor %}
+                      {% endif %}
                   </div>
                 </div>
               </div>
