@@ -7,19 +7,24 @@ from django.contrib import messages
 
 
 # Create your views here.
+def home(request):
+    if 'username' in request.session:
+        return render(request,'home.html')
+    else:
+        return redirect(index)
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def index(request):
     if 'username' in request.session:
-        return render(request,'home.html')
+        return redirect(home)
     if request.method == 'POST':
         username = request.POST['user']
         password = request.POST['pass']
         user = authenticate(username=username, password=password)
-        if user is not None:
+        if user is not None and request.method == 'POST':
             messages.error(request,"Enter correct details")
             request.session['username'] = username
-            return render(request, 'home.html')
-        elif user is None:
+            return redirect(home)
+        elif user is None and request.method =='POST':
             messages.error(request,"Fill Details Correctly")
     return render(request, 'login.html')
 
@@ -48,3 +53,4 @@ def signup(request):
 def logout(request):
     request.session.flush()
     return redirect(index)
+
