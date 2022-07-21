@@ -9,7 +9,7 @@ from django.contrib import messages
 # Create your views here.
 def home(request):
     if 'username' in request.session:
-        return render(request,'home.html')
+        return render(request,'home.html',{'username':request.session['username']})
     else:
         return redirect(index)
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
