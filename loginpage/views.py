@@ -7,11 +7,14 @@ from django.contrib import messages
 
 
 # Create your views here.
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def home(request):
     if 'username' in request.session:
         return render(request,'home.html',{'username':request.session['username']})
     else:
         return redirect(index)
+
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def index(request):
     if 'username' in request.session:
@@ -41,16 +44,18 @@ def signup(request):
         if password == password2:
             if User.objects.filter(username = username).exists():
                 messages.error(request,"User Already Exists")
+                return redirect(index)
             else:
                 user = User.objects.create_user(username=username, password=password, email=email, first_name=username)
                 user.save();
                 return redirect(index)
+        else:
+            messages.error(request,"Passwords do not match")
     else:
-        return render(request, 'signup.html')
+        return redirect(signup)
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout(request):
     request.session.flush()
     return redirect(index)
-
