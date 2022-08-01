@@ -85,8 +85,8 @@
                     </form>
                         <a href="/"><button class="btn btn-outline-primary btn-lg mt-2 px-5" type="submit" id="logi">Log-In</button></a>
                       {% if messages %}
-                        {% for message in message%}
-                            {{message}}
+                        {% for message in messages%}
+                            <p class="text-danger">{{message}}</p>
                         {% endfor %}
                       {% endif %}
                   </div>
